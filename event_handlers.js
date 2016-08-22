@@ -17,13 +17,13 @@ exports.process_push = function({ after, repository }) {
 }
 
 exports.process_comment = function({ comment, issue, repository }) {
-  if (comment.body === ':+1:') {
+  if (comment.body.includes(':+1:')) {
     return github.create_status_from_issue(repository, issue, {
       'state': 'success',
       'description': 'Code review passed',
       'context': 'code-review/pullreviews'
     });
-  } else if (comment.body === ':-1:') {
+  } else if (comment.body.includes(':-1:')) {
     return github.create_status_from_issue(repository, issue, {
       'state': 'failure',
       'description': 'Code review failed',
