@@ -17,6 +17,14 @@ describe('eventHandlers', function() {
     });
   });
 
+  describe('#process_push()', function() {
+    it('should call create_status', function() {
+      simple.mock(github, 'create_status').returnWith(null);
+      eventHandlers.process_push({ head: 'sha', repository: {} });
+      expect(github.create_status.callCount).to.equal(1);
+    });
+  });
+
   describe('#process_comment()', function() {
     beforeEach(function() {
       simple.mock(github, 'create_status_from_issue').returnWith(null);

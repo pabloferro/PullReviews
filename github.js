@@ -7,7 +7,6 @@ const client = octonode.client(config.token);
 exports.create_status = function(repo_full_name, pull_request_sha, status) {
   var ghrepo = client.repo(repo_full_name);
   ghrepo.status(pull_request_sha, status, function(err, status) {
-    // TODO: improve error handling => Promisify (bluebird) + middleware
     if (err) {
       return console.log('Error: ', err);
     }

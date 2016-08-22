@@ -14,6 +14,8 @@ app.post('/event_handler', function (req, res) {
       if(req.body.action === 'opened') {
         return eventHandlers.process_pull_request(req.body.pull_request);
       }
+    case 'push':
+      return eventHandlers.process_push(req.body);
     case 'issue_comment':
       if(req.body.action === 'created') {
         return eventHandlers.process_comment(req.body);
