@@ -1,14 +1,8 @@
-var octonode = require('octonode');
+var octonode   = require('octonode');
+    readConfig = require('read-config'),
+    config     = readConfig('./.github.json');
 
-//TODO get his from config file
-const GITHUB_TOKEN = '-';
-const client = octonode.client(GITHUB_TOKEN);
-
-const pending_status = {
-  'state': 'pending',
-  'description': 'Front-end code review pending',
-  'context': 'Code Review'
-}
+const client = octonode.client(config.token);
 
 exports.create_status = function(repo_full_name, pull_request_sha, status) {
   var ghrepo = client.repo(repo_full_name);

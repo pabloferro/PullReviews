@@ -6,7 +6,8 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "octonode": "^0.7.6"
+    "octonode": "^0.7.6",
+    "read-config": "^2.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
