@@ -3,8 +3,6 @@ var express       = require('express'),
     github        = require('octonode'),
     eventHandlers = require('./event_handlers'),
 
-const GITHUB_TOKEN = '3467ce0288eb97fb51463b9b2ecf5595b533f5a6';
-
 var app = express();
 
 app.use(bodyParser.json()); // support json encoded bodies
