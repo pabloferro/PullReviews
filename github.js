@@ -8,13 +8,13 @@ exports.create_status = function(repo_full_name, pull_request_sha, status) {
   var ghrepo = client.repo(repo_full_name);
   ghrepo.status(pull_request_sha, status, function(err, status) {
     if (err) {
-      return console.log('Error: ', err);
+      return console.log('Create Status Error: ', err);
     }
   });
 }
 
 exports.create_status_from_pr = function(pull_request, status) {
-  this.create_status(pull_request.base.repo.full_name, pull_request.head.sha, status)
+  module.exports.create_status(pull_request.base.repo.full_name, pull_request.head.sha, status)
 }
 
 exports.create_status_from_issue = function(repository, issue, status) {
@@ -24,6 +24,6 @@ exports.create_status_from_issue = function(repository, issue, status) {
     if (err) {
       return console.log('GET pr error: ', err);
     }
-    this.create_status(repository.full_name, pr.head.sha);
+    module.exports.create_status(repository.full_name, pr.head.sha, status);
   });
 }

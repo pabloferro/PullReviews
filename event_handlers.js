@@ -8,8 +8,8 @@ exports.process_pull_request = function(pull_request) {
   });
 }
 
-exports.process_push = function({ head, repository }) {
-  return github.create_status(repository.full_name, head, {
+exports.process_push = function({ after, repository }) {
+  return github.create_status(repository.full_name, after, {
     'state': 'pending',
     'description': 'Code review pending',
     'context': 'code-review/pullreviews'

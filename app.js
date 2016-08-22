@@ -1,7 +1,7 @@
 var express       = require('express'),
     bodyParser    = require('body-parser'),
     github        = require('octonode'),
-    eventHandlers = require('./event_handlers'),
+    eventHandlers = require('./event_handlers');
 
 var app = express();
 
@@ -12,16 +12,21 @@ app.post('/event_handler', function (req, res) {
   switch(req.headers['x-github-event']) {
     case 'pull_request':
       if(req.body.action === 'opened') {
-        return eventHandlers.process_pull_request(req.body.pull_request);
+        eventHandlers.process_pull_request(req.body.pull_request);
       }
+      break;
     case 'push':
-      return eventHandlers.process_push(req.body);
+      eventHandlers.process_push(req.body);
+      break;
     case 'issue_comment':
       if(req.body.action === 'created') {
-        return eventHandlers.process_comment(req.body);
+        eventHandlers.process_comment(req.body);
       }
+      break;
   }
-  res.status(200);
+  res.send('ok');
 });
 
-app.listen(3000);
+app.listen(3000, function() {
+  console.log('PullReviews listening on port 3000');
+});
