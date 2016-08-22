@@ -9,23 +9,27 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.post('/event_handler', function (req, res) {
-  switch(req.headers['x-github-event']) {
+  handleEvent(req.headers['x-github-event'], req.body)
+  res.send('ok');
+});
+
+const handleEvent = function(event, body) {
+  switch(event) {
     case 'pull_request':
-      if(req.body.action === 'opened') {
-        eventHandlers.process_pull_request(req.body.pull_request);
+      if(body.action === 'opened') {
+        eventHandlers.process_pull_request(body.pull_request);
       }
       break;
     case 'push':
-      eventHandlers.process_push(req.body);
+      eventHandlers.process_push(body);
       break;
     case 'issue_comment':
-      if(req.body.action === 'created') {
-        eventHandlers.process_comment(req.body);
+      if(body.action === 'created') {
+        eventHandlers.process_comment(body);
       }
       break;
   }
-  res.send('ok');
-});
+}
 
 app.listen(3000, function() {
   console.log('PullReviews listening on port 3000');
