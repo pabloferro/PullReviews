@@ -19,7 +19,7 @@ app.post('/event_handler', function (req, res) {
         return eventHandlers.process_comment(req.body);
       }
   }
-  res.send('It works!');
+  res.status(200);
 });
 
 app.listen(3000);
