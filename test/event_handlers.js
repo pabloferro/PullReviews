@@ -10,10 +10,13 @@ describe('eventHandlers', function() {
   });
 
   describe('#process_pull_request()', function() {
-    it('should call create_status_from_pr', function() {
-      simple.mock(github, 'create_status_from_pr').returnWith(null);
-      eventHandlers.process_pull_request();
-      expect(github.create_status_from_pr.callCount).to.equal(1);
+    it('should call create_status', function() {
+      simple.mock(github, 'create_status').returnWith(null);
+      eventHandlers.process_pull_request({
+        head: { sha: 'sha' },
+        base: { repo: { full_name: 'example/repo' } }
+      });
+      expect(github.create_status.callCount).to.equal(1);
     });
   });
 
@@ -32,13 +35,13 @@ describe('eventHandlers', function() {
 
     describe('when it is an approval comment', function() {
       it('should call create_status_from_issue', function() {
-        eventHandlers.process_comment({ comment: { body: ':+1:' } });
+        eventHandlers.process_comment({ comment: { body: ':+1:' }, repository: {} });
         expect(github.create_status_from_issue.callCount).to.equal(1);
       });
     });
     describe('when it is a disapproval comment', function() {
       it('should call create_status_from_issue', function() {
-        eventHandlers.process_comment({ comment: { body: ':-1:' } });
+        eventHandlers.process_comment({ comment: { body: ':-1:' }, repository: {} });
         expect(github.create_status_from_issue.callCount).to.equal(1);
       });
     });
