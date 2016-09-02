@@ -1,5 +1,4 @@
-var nconf = require('nconf');
-var ENVIRONMENT = nconf.get('NODE_ENV') || 'development';
+var ENVIRONMENT = process.env.NODE_ENV || 'development';
 
 var configFile = './' + ENVIRONMENT;
 
