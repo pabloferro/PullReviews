@@ -9,6 +9,7 @@
     "express": "^4.14.0",
     "octonode": "^0.7.6",
     "read-config": "^2.0.0",
+    "request": "^2.74.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
