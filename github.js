@@ -1,9 +1,9 @@
 var Promise    = require('bluebird');
     octonode   = Promise.promisifyAll(require('octonode'));
-    readConfig = require('read-config'),
-    config     = readConfig('./.github.json'),
+    config = require('./config/config'),
     winston    = require('winston');
 
+// This should be using a token depending on the current repo
 const client = octonode.client(config.token);
 
 exports.create_status = function(repo_full_name, pull_request_sha, status) {

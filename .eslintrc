@@ -1,0 +1,201 @@
+/* These settings are part of the coding style.  See STYLE-GUIDE.md.  Please setup your IDE to use ESLint. */
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    // template strings or single quote strings
+    "quotes": [0, "single"],
+    "semi": 2,
+    // ==== Possible Errors ====
+    // verify super() callings in constructors
+    "constructor-super": 2,
+    // disallow assignment in conditional expressions
+    "no-cond-assign": 2,
+    // disallow use of console (off by default in the node environment)
+    "no-console": 2,
+    // disallow use of constant expressions in conditions
+    "no-constant-condition": 2,
+    // disallow control characters in regular expressions
+    "no-control-regex": 2,
+    // disallow use of debugger
+    "no-debugger": 2,
+    // disallow duplicate arguments in functions
+    "no-dupe-args": 2,
+    // disallow duplicate keys when creating object literals
+    "no-dupe-keys": 2,
+    // disallow a duplicate case label.
+    "no-duplicate-case": 2,
+    // disallow the use of empty character classes in regular expressions
+    "no-empty-character-class": 2,
+    // disallow empty statements
+    "no-empty": 2,
+    // disallow assigning to the exception in a catch block
+    "no-ex-assign": 2,
+    // disallow double-negation boolean casts in a boolean context
+    "no-extra-boolean-cast": 2,
+    // disallow unnecessary parentheses (off by default)
+    "no-extra-parens": 2,
+    // disallow unnecessary semicolons
+    "no-extra-semi": 2,
+    // disallow overwriting functions written as function declarations
+    "no-func-assign": 2,
+    // disallow function or variable declarations in nested blocks
+    "no-inner-declarations": 2,
+    // disallow invalid regular expression strings in the RegExp constructor
+    "no-invalid-regexp": 2,
+    // disallow irregular whitespace outside of strings and comments
+    "no-irregular-whitespace": 2,
+    // disallow negation of the left operand of an in expression
+    "no-negated-in-lhs": 2,
+    // disallow the use of object properties of the global object (Math and JSON) as functions
+    "no-obj-calls": 2,
+    // disallow multiple spaces in a regular expression literal
+    "no-regex-spaces": 2,
+    // disallow sparse arrays
+    "no-sparse-arrays": 2,
+    // disallow unreachable statements after a return, throw, continue, or break statement
+    "no-unreachable": 2,
+    // disallow comparisons with the value NaN
+    "use-isnan": 2,
+    // Ensure JSDoc comments are valid (off by default)
+    "valid-jsdoc": 0,
+    // Ensure that the results of typeof are compared against a valid string
+    "valid-typeof": 2,
+    // Avoid code that looks like two expressions but is actually one (off by default)
+    "no-unexpected-multiline": 2,
+    // ==== Best Practices Errors ====
+
+    // Enforces getter/setter pairs in objects (off by default)
+    "accessor-pairs": 2,
+    // treat var statements as if they were block scoped (off by default)
+    "block-scoped-var": 2,
+    // require return statements to either always or never specify values
+    "consistent-return": 2,
+    // specify curly brace conventions for all control statements
+    "curly": 0,
+    // require default case in switch statements (off by default)
+    "default-case": 0,
+    // encourages use of dot notation whenever possible
+    "dot-notation": 2,
+    // enforces consistent newlines before or after dots (off by default)
+    "dot-location": 0,
+    // require the use of === and !==
+    "eqeqeq": 2,
+    // make sure for-in loops have an if statement (off by default)
+    "guard-for-in": 2,
+    // disallow the use of alert, confirm, and prompt
+    "no-alert": 2,
+    // disallow use of arguments.caller or arguments.callee
+    "no-caller": 2,
+    // disallow division operators explicitly at beginning of regular expression (off by default)
+    "no-div-regex": 2,
+    // disallow else after a return in an if (off by default)
+    "no-else-return": 0,
+    // disallow comparisons to null without a type-checking operator (off by default)
+    "no-eq-null": 2,
+    // disallow use of eval()
+    "no-eval": 2,
+    // disallow adding to native types
+    "no-extend-native": 2,
+    // disallow unnecessary function binding
+    "no-extra-bind": 2,
+    // disallow fallthrough of case statements
+    "no-fallthrough": 0,
+    // disallow the use of leading or trailing decimal points in numeric literals (off by default)
+    "no-floating-decimal": 2,
+    // disallow use of eval()-like methods
+    "no-implied-eval": 2,
+    // disallow usage of __iterator__ property
+    "no-iterator": 0,
+    // disallow use of labeled statements
+    "no-labels": 2,
+    // disallow unnecessary nested blocks
+    "no-lone-blocks": 2,
+    // disallow creation of functions within loops
+    "no-loop-func": 2,
+    // disallow use of multiple spaces
+    "no-multi-spaces": ["error", { exceptions: { "VariableDeclarator": true } }],
+    // disallow use of multiline strings
+    "no-multi-str": 0,
+    // disallow reassignments of native objects
+    "no-native-reassign": 2,
+    // disallow use of new operator for Function object
+    "no-new-func": 2,
+    // disallows creating new instances of String,Number, and Boolean
+    "no-new-wrappers": 2,
+    // disallow use of new operator when not part of the assignment or comparison
+    "no-new": 2,
+    // disallow use of octal escape sequences in string literals, such as var foo = "Copyright \251";
+    "no-octal-escape": 2,
+    // disallow use of octal literals
+    "no-octal": 2,
+    // disallow reassignment of function parameters (off by default)
+    "no-param-reassign": 2,
+    // disallow use of process.env (off by default)
+    "no-process-env": 2,
+    // disallow usage of __proto__ property
+    "no-proto": 2,
+    // disallow declaring the same variable more than once
+    "no-redeclare": 2,
+    // disallow use of assignment in return statement
+    "no-return-assign": 2,
+    // disallow use of javascript: urls.
+    "no-script-url": 2,
+    // disallow comparisons where both sides are exactly the same (off by default)
+    "no-self-compare": 2,
+    // disallow use of comma operator
+    "no-sequences": 2,
+    // restrict what can be thrown as an exception (off by default)
+    "no-throw-literal": 2,
+    // disallow usage of expressions in statement position
+    "no-unused-expressions": 2,
+    // disallow use of void operator (off by default)
+    "no-void": 2,
+    // disallow usage of configurable warning terms in comments": 2, // e.g. TODO or FIXME (off by default)
+    "no-warning-comments": 2,
+    // disallow use of the with statement
+    "no-with": 2,
+    // require use of the second argument for parseInt() (off by default)
+    "radix": 2,
+    // requires to declare all vars on top of their containing scope (off by default)
+    "vars-on-top": 2,
+    // require immediate function invocation to be wrapped in parentheses (off by default)
+    "wrap-iife": [2, "inside"],
+    // require or disallow Yoda conditions
+    "yoda": 2,
+    // ensures that all code is in strict mode and that there are no extraneous Use Strict Directives at the top level or in nested function
+    // Toggled off, see http://stackoverflow.com/questions/12957625/angularjs-controllers-and-use-strict#answer-12960529
+    "strict": [
+      0,
+      "safe"
+    ],
+    "no-shadow-restricted-names": 2,
+    //  disallow use of undefined when initializing variables
+    "no-undef-init": 2,
+    // Require camel case names
+    "camelcase": 2,
+    // this option sets a specific tab width for your code
+    "indent": [
+      2,
+      4
+    ],
+    // disallow if as the only statement in an else block
+    "no-lonely-if": 2,
+    // disallow mixed spaces and tabs for indentation
+    "no-mixed-spaces-and-tabs": 2,
+    "no-new-object": 2,
+    // require method and property shorthand syntax for object literals
+    "object-shorthand": 2,
+    // suggest using of const declaration for variables that are never modified after declared
+    "prefer-const": 2,
+    // disallow use of variables before they are defined
+    "no-use-before-define": 2,
+    // require or disallow a space immediately following the // or /* in a comment
+    "spaced-comment": 2
+  },
+  "globals": {
+    "angular": true
+  }
+}

@@ -1,6 +1,5 @@
 var express       = require('express'),
     bodyParser    = require('body-parser'),
-    github        = require('octonode'),
     eventHandlers = require('./event_handlers');
 
 var app = express();
