@@ -175,7 +175,7 @@
     //  disallow use of undefined when initializing variables
     "no-undef-init": 2,
     // Require camel case names
-    "camelcase": 2,
+    "camelcase": 0,
     // this option sets a specific tab width for your code
     "indent": [
       2,
