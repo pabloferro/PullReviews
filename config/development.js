@@ -2,11 +2,9 @@ var readConfig = require('read-config'),
     config     = readConfig('./.github.json');
 
 exports.config = {
-    common: {
-        port: process.env.PORT,
-        github: {
-            id: config.id,
-            secret: config.secret,
-        },
-    }
+    port: process.env.PORT || 3000,
+    github: {
+        id: config.id,
+        secret: config.secret,
+    },
 };

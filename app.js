@@ -1,8 +1,8 @@
 var express       = require('express'),
     bodyParser    = require('body-parser'),
     eventHandlers = require('./event_handlers'),
-    config        = require('./config/config'),
-    winston    = require('winston');
+    config        = require('./config/config').config,
+    winston       = require('winston');
 
 var app = express();
 
@@ -36,6 +36,6 @@ app.post('/event_handler', function (req, res) {
     res.send('ok');
 });
 
-app.listen(config, function() {
-    winston.info(`PullReviews listening on port ${config}`);
+app.listen(config.port, function() {
+    winston.info(`PullReviews listening on port ${config.port}`);
 });
