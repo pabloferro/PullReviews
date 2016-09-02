@@ -8,6 +8,10 @@ var app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+app.get('/', function(req, res){
+  res.send('Pull Reviews');
+});
+
 app.post('/event_handler', function (req, res) {
   handleEvent(req.headers['x-github-event'], req.body)
   res.send('ok');
