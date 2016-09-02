@@ -1,8 +1,10 @@
-var express       = require('express'),
+var Promise       = require('bluebird'),
+    express       = require('express'),
     bodyParser    = require('body-parser'),
     eventHandlers = require('./event_handlers'),
     config        = require('./config/config').config,
-    winston       = require('winston');
+    winston       = require('winston'),
+    request       = Promise.promisifyAll(require('request'));
 
 var app = express();
 
@@ -41,7 +43,19 @@ app.post('/event_handler', function (req, res) {
 
 app.get('/oauth/callback', function(req, res) {
     winston.info(`code: ${req.query.code}`);
-    res.send('ok');
+    const access_token_url = 'https://github.com/login/oauth/access_token';
+    const form = {
+        client_id: config.github.id,
+        client_secret: config.github.secret,
+        code: req.query.code
+    };
+    request.postAsync(access_token_url, { form }).then(function(response, body) {
+        res.send('Done');
+    }).catch(function(error, response, body) {
+        res.send(`Error: ${error}
+                  Response: ${response}
+                  Body: ${body}`);
+    });
 });
 
 app.listen(config.port, function() {
