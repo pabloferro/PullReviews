@@ -7,6 +7,7 @@
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "mongodb": "^2.2.9",
     "octonode": "^0.7.6",
     "read-config": "^2.0.0",
     "request": "^2.74.0",

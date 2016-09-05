@@ -4,7 +4,8 @@ var Promise       = require('bluebird'),
     eventHandlers = require('./event_handlers'),
     config        = require('./config/config').config,
     winston       = require('winston'),
-    request       = Promise.promisifyAll(require('request'));
+    request       = Promise.promisifyAll(require('request')),
+    repos         = require('./repos');
 
 var app = express();
 
@@ -50,6 +51,8 @@ app.get('/oauth/callback', function(req, res) {
         code: req.query.code
     };
     request.postAsync(access_token_url, { form }).then(function(response, body) {
+        winston.info(`access_token body: ${body}`);
+        repos.save_token('test', body.access_token);
         res.send('Done');
     }).catch(function(error, response, body) {
         res.send(`Error: ${error}
