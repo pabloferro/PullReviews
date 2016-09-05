@@ -44,15 +44,21 @@ app.post('/event_handler', function (req, res) {
 
 app.get('/oauth/callback', function(req, res) {
     winston.info(`code: ${req.query.code}`);
-    const access_token_url = 'https://github.com/login/oauth/access_token';
-    const form = {
-        client_id: config.github.id,
-        client_secret: config.github.secret,
-        code: req.query.code
+    const options = {
+        url: 'https://github.com/login/oauth/access_token',
+        headers: {
+            'Accept': 'application/json'
+        },
+        form: {
+            client_id: config.github.id,
+            client_secret: config.github.secret,
+            code: req.query.code
+        },
+        json: true
     };
-    request.postAsync(access_token_url, { form }).then(function(response, body) {
-        winston.info(`access_token body: ${body}`);
-        repos.save_token('test', body.access_token);
+
+    request.postAsync(options).then(function(response, body) {
+        repos.save_token('test', response.body.access_token);
         res.send('Done');
     }).catch(function(error, response, body) {
         res.send(`Error: ${error}
