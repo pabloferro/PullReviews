@@ -57,9 +57,21 @@ app.get('/oauth/callback', function(req, res) {
         json: true
     };
 
-    request.postAsync(options).then(function(response, body) {
-        repos.save_token('test', response.body.access_token);
-        res.send('Done');
+    request.postAsync(options).then(function(response) {
+        const access_token = response.body.access_token;
+        const options = {
+            url: 'https://api.github.com/user',
+            headers: {
+                'Accept': 'application/vnd.github.v3+json',
+                'Authorization': `token ${access_token}`,
+                'User-Agent': 'PullReviews'
+            },
+            json: true
+        };
+        request.getAsync(options).then(function(response) {
+            repos.save_token(response.body.login, access_token);
+            res.send('Done');
+        });
     }).catch(function(error, response, body) {
         res.send(`Error: ${error}
                   Response: ${response}
