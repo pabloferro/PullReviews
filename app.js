@@ -65,8 +65,8 @@ app.get('/oauth/callback', function(req, res) {
 });
 
 
-app.get('/oauth/callback2', function(req, res) {
-    winston.info(`code: ${req.query.code}`);
+app.post('/auth/github', function(req, res) {
+    winston.info(`code: ${req.body.code}`);
     const options = {
         url: 'https://github.com/login/oauth/access_token',
         headers: {
@@ -75,7 +75,7 @@ app.get('/oauth/callback2', function(req, res) {
         form: {
             client_id: config.github.id,
             client_secret: config.github.secret,
-            code: req.query.code
+            code: req.body.code
         },
         json: true
     };
@@ -93,7 +93,7 @@ app.get('/oauth/callback2', function(req, res) {
         };
         request.getAsync(options).then(function(response) {
             repos.save_token(response.body.login, access_token);
-            res.send('Done');
+            res.send({ user: response.body.login });
         });
     }).catch(function(error, response, body) {
         res.send(`Error: ${error}

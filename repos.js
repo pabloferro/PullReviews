@@ -19,7 +19,7 @@ MongoClient.connectAsync(config.mongoUrl).then((dbObject) => {
 });
 
 exports.save_token = function (user, token) {
-    return users_collection().updateOneAsync({ user }, { $set: { token} }, { upsert: true })
+    return users_collection().updateOneAsync({ user }, { $set: { token } }, { upsert: true })
         .catch((error) => winston.error(`Mongo Error: ${err}`));
 };
 
