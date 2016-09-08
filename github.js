@@ -24,3 +24,14 @@ exports.get_config_file = function(repo_full_name) {
         return JSON.parse(Buffer.from(file.content, 'base64').toString());
     });
 };
+
+exports.create_hook = function(repo_full_name) {
+    return client.repo(repo_full_name).hookAsync({
+        'name': 'pullreviews',
+        'active': true,
+        'events': ['issue_comment', 'pull_request', 'push'],
+        'config': {
+            'url': config.webhookUrl
+        }
+    });
+};
