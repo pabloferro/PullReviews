@@ -15,8 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use(function myauth(req, res, next) {
     req.challenge = req.get('Authorization');
-
     repos.get_user_by_token(req.challenge).then((user) => {
+        winston.info(`user: ${user}`);
         if (user) {
             req.authenticated = true;
             req.authentication = user;
@@ -24,9 +24,11 @@ app.use(function myauth(req, res, next) {
             req.authenticated = false;
             req.authentication = { error: 'Invalid token' };
         }
+    }).catch((error) => {
+        winston.error(`Error on get user by token: ${error}`);
+    }).finally(() => {
+        next();
     });
-
-    next();
 });
 
 app.get('/', function(req, res){
@@ -93,13 +95,18 @@ app.post('/auth/github', function(req, res) {
         };
         request.getAsync(options).then(function(response) {
             repos.save_token(response.body.login, access_token);
-            res.send({ user: response.body.login });
+            res.send({
+                user: response.body.login,
+                access_token
+            });
         });
     }).catch(function(error, response, body) {
-        res.send(`Error: ${error}
-                  Response: ${response}
-                  Body: ${body}`);
+        res.send({ error, response, body });
     });
+});
+
+app.get('/authenticated', authentication.required(), function (req, res) {
+    res.send({ success: true });
 });
 
 app.listen(config.port, function() {
