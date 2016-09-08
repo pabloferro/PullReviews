@@ -6,6 +6,10 @@ var Promise     = require('bluebird'),
 
 var db;
 
+const users_collection = function () {
+    return Promise.promisifyAll(db.collection('users'));
+};
+
 MongoClient.connectAsync(config.mongoUrl).then((dbObject) => {
     winston.info(`Mongo OK`);
     db = dbObject;
@@ -15,12 +19,14 @@ MongoClient.connectAsync(config.mongoUrl).then((dbObject) => {
 });
 
 exports.save_token = function (user, token) {
-    var tokens_collection = Promise.promisifyAll(db.collection('tokens'));
-    return tokens_collection.updateOneAsync({ user }, { $set: { token} }, { upsert: true })
+    return users_collection().updateOneAsync({ user }, { $set: { token} }, { upsert: true })
         .catch((error) => winston.error(`Mongo Error: ${err}`));
 };
 
 exports.get_token = function (user) {
-    var tokens_collection = Promise.promisifyAll(db.collection('tokens'));
-    return tokens_collection.findOneAsync({ user }).then((user) => user.token);
+    return users_collection().findOneAsync({ user }).then((user) => user.token);
+};
+
+exports.get_user_by_token = function (token) {
+    return users_collection().findOneAsync({ token });
 };

@@ -1,16 +1,33 @@
-var Promise       = require('bluebird'),
-    express       = require('express'),
-    bodyParser    = require('body-parser'),
-    eventHandlers = require('./event_handlers'),
-    config        = require('./config/config').config,
-    winston       = require('winston'),
-    request       = Promise.promisifyAll(require('request')),
-    repos         = require('./repos');
+var Promise        = require('bluebird'),
+    express        = require('express'),
+    authentication = require('express-authentication'),
+    bodyParser     = require('body-parser'),
+    eventHandlers  = require('./event_handlers'),
+    config         = require('./config/config').config,
+    winston        = require('winston'),
+    request        = Promise.promisifyAll(require('request')),
+    repos          = require('./repos');
 
 var app = express();
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+app.use(function myauth(req, res, next) {
+    req.challenge = req.get('Authorization');
+
+    repos.get_user_by_token(req.challenge).then((user) => {
+        if (user) {
+            req.authenticated = true;
+            req.authentication = user;
+        } else {
+            req.authenticated = false;
+            req.authentication = { error: 'Invalid token' };
+        }
+    });
+
+    next();
+});
 
 app.get('/', function(req, res){
     res.send(`Pull Reviews<br>
@@ -43,6 +60,12 @@ app.post('/event_handler', function (req, res) {
 });
 
 app.get('/oauth/callback', function(req, res) {
+    winston.info(`code: ${req.query.code}`);
+    res.send(req.query.code);
+});
+
+
+app.get('/oauth/callback2', function(req, res) {
     winston.info(`code: ${req.query.code}`);
     const options = {
         url: 'https://github.com/login/oauth/access_token',
