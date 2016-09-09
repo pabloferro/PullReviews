@@ -26,9 +26,8 @@ exports.get_config_file = function(repo_full_name) {
 };
 
 exports.get_repos = function(access_token) {
-    octonode.client(access_token).meAsync().then((me) => {
-
-    });
+    const client = Promise.promisifyAll(octonode.client(access_token));
+    return client.me().reposAsync();
 };
 
 exports.me = function(access_token) {

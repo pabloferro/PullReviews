@@ -22,7 +22,7 @@ exports.init = function (app) {
     app.post('/auth/github', login.github);
 
     app.get('/authenticated', authentication.required(), function (req, res) {
-        res.send({ success: true });
+        res.send(req.authentication);
     });
 
     app.get('/repositories', authentication.required(), repositories.index);

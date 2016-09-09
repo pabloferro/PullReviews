@@ -3,7 +3,13 @@ var Promise = require('bluebird'),
     github  = require('../services/github');
 
 exports.index = function (req, res) {
-    res.send(req.authentication);
+    github.get_repos(req.authentication.token).then((repos) => {
+        console.log('repos: ', repos);
+        res.send(repos);
+    }).catch((error) => {
+        console.log('repos error: ', error);
+        res.send({ error });
+    });
 };
 
 exports.create = function (req, res) {
