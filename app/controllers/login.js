@@ -1,6 +1,8 @@
 var Promise = require('bluebird'),
     request = Promise.promisifyAll(require('request')),
-    repos   = require('../services/repos');
+    repos   = require('../services/repos'),
+    winston = require('winston'),
+    config  = require('../../config/config').config;
 
 exports.github = function(req, res) {
     winston.info(`code: ${req.body.code}`);

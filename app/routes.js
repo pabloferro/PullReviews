@@ -1,7 +1,9 @@
 var authentication = require('express-authentication'),
     events         = require('./controllers/events'),
     login          = require('./controllers/login'),
-    config         = require('../config/config').config;
+    repositories   = require('./controllers/repositories'),
+    config         = require('../config/config').config,
+    winston        = require('winston');
 
 exports.init = function (app) {
     // Index (these two endpoints won't be necessary with the frontend app)
@@ -23,11 +25,6 @@ exports.init = function (app) {
         res.send({ success: true });
     });
 
-    app.post('/repository', authentication.required(), function (req, res) {
-        res.send(req.body.name);
-    });
-
-    app.post('/repository', authentication.required(), function (req, res) {
-        res.send(req.body.name);
-    });
+    app.get('/repositories', authentication.required(), repositories.index);
+    app.post('/repository', authentication.required(), repositories.create);
 };

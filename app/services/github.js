@@ -25,6 +25,17 @@ exports.get_config_file = function(repo_full_name) {
     });
 };
 
+exports.get_repos = function(access_token) {
+    octonode.client(access_token).meAsync().then((me) => {
+
+    });
+};
+
+exports.me = function(access_token) {
+    const client = Promise.promisifyAll(octonode.client(access_token));
+    return client.meAsync();
+};
+
 exports.create_hook = function(repo_full_name) {
     return client.repo(repo_full_name).hookAsync({
         'name': 'pullreviews',
