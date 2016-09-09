@@ -1,7 +1,7 @@
 var Promise     = require('bluebird'),
     MongoClient = Promise.promisifyAll(require('mongodb').MongoClient),
     assert      = require('assert'),
-    config      = require('./config/config').config,
+    config      = require('../../config/config').config,
     winston     = require('winston');
 
 var db;

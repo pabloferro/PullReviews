@@ -1,6 +1,6 @@
 var Promise    = require('bluebird'),
     octonode   = Promise.promisifyAll(require('octonode')),
-    config     = require('./config/config').config,
+    config     = require('../../config/config').config,
     winston    = require('winston');
 
 // This should be using a token depending on the current repo

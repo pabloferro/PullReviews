@@ -1,7 +1,7 @@
 var expect        = require('chai').expect,
     simple        = require('simple-mock'),
-    eventHandlers = require('../event_handlers'),
-    github        = require('../github'),
+    eventHandlers = require('../app/services/event_handlers'),
+    github        = require('../app/services/github'),
     Promise       = require('bluebird');
 
 describe('eventHandlers', function() {
