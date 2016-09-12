@@ -38,11 +38,12 @@ exports.me = function(access_token) {
 
 exports.create_hook = function(access_token, repo_full_name) {
     return client(access_token).repo(repo_full_name).hookAsync({
-        'name': 'pullreviews',
+        'name': 'web',
         'active': true,
         'events': ['issue_comment', 'pull_request', 'push'],
         'config': {
-            'url': config.webhookUrl
+            'url': config.webhookUrl,
+            'content_type': 'json'
         }
     });
 };
