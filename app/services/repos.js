@@ -23,17 +23,13 @@ exports.save_token = function (user, token) {
         .catch((error) => winston.error(`Mongo Error: ${err}`));
 };
 
-exports.get_user = function (user) {
-    return users_collection().findOneAsync({ user });
-};
-
 exports.save_repos = function (user, repos) {
     return users_collection().updateOneAsync({ user }, { $set: { repos } })
         .catch((error) => winston.error(`Mongo Error: ${err}`));
 };
 
-exports.get_user_by_token = function (token) {
-    return users_collection().findOneAsync({ token });
+exports.find_user = function (query) {
+    return users_collection().findOneAsync(query);
 };
 
 const repo_exists = function (repos, repo_full_name) {
@@ -41,7 +37,7 @@ const repo_exists = function (repos, repo_full_name) {
 };
 
 exports.add_repo_to_user = function (user_name, repo_full_name) {
-    module.exports.get_user(user_name).then((user) => {
+    module.exports.find_user({ user: user_name }).then((user) => {
         if(!user.repos || !repo_exists(user.repos, repo_full_name)) {
             user.repos = user.repos || [];
             user.repos.push(repo_full_name);

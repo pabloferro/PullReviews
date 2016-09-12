@@ -3,7 +3,7 @@ var winston = require('winston'),
 
 module.exports = function myauth(req, res, next) {
     req.challenge = req.get('Authorization');
-    repos.get_user_by_token(req.challenge).then((user) => {
+    repos.find_user({ token: req.challenge }).then((user) => {
         if (user) {
             req.authenticated = true;
             req.authentication = user;
