@@ -1,6 +1,6 @@
 var github = require('./github');
 
-const review_pending = function(repository, sha) {
+const create_review_pending = function(repository, sha) {
     return github.get_config_file(repository).then(function (config) {
         return github.create_status(repository, sha, {
             'state': 'pending',
@@ -17,11 +17,11 @@ const review_pending = function(repository, sha) {
 };
 
 exports.process_pull_request = function(pull_request) {
-    review_pending(pull_request.base.repo.full_name, pull_request.head.sha);
+    create_review_pending(pull_request.base.repo.full_name, pull_request.head.sha);
 };
 
 exports.process_push = function({ after, repository }) {
-    review_pending(repository.full_name, after);
+    create_review_pending(repository.full_name, after);
 };
 
 exports.process_comment = function({ comment, issue, repository }) {
