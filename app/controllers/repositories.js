@@ -15,8 +15,8 @@ exports.index = function (req, res) {
 exports.create = function (req, res) {
     github.create_hook(req.authentication.token, req.body.repo_full_name).then((response) => {
         res.send(response);
-    }).catch((error) => {
-        winston.error(`repos : ${error}`);
-        res.send({ error });
+    }).catch((response) => {
+        winston.error(`repos : ${response}`);
+        res.send({ errors: response.body.errors });
     });
 };
