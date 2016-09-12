@@ -4,8 +4,11 @@ var Promise    = require('bluebird'),
     winston    = require('winston');
 
 // This should be using a token depending on the current repo
-const client = octonode.client(config.token);
+const client = function(access_token) {
+    return Promise.promisifyAll(octonode.client(access_token));
+};
 
+// TODO: udpate client to use token
 exports.create_status = function(repo_full_name, pull_request_sha, status) {
     return client.repo(repo_full_name).statusAsync(pull_request_sha, status);
 };
@@ -26,17 +29,15 @@ exports.get_config_file = function(repo_full_name) {
 };
 
 exports.get_repos = function(access_token) {
-    const client = Promise.promisifyAll(octonode.client(access_token));
-    return client.me().reposAsync();
+    return client(access_token).me().reposAsync();
 };
 
 exports.me = function(access_token) {
-    const client = Promise.promisifyAll(octonode.client(access_token));
-    return client.meAsync();
+    return client(access_token).meAsync();
 };
 
-exports.create_hook = function(repo_full_name) {
-    return client.repo(repo_full_name).hookAsync({
+exports.create_hook = function(access_token, repo_full_name) {
+    return client(access_token).repo(repo_full_name).hookAsync({
         'name': 'pullreviews',
         'active': true,
         'events': ['issue_comment', 'pull_request', 'push'],

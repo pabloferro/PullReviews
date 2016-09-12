@@ -18,13 +18,13 @@ exports.init = function (app) {
         res.send(req.query.code);
     });
 
+    // github
     app.post('/event_handler', events.handle_event);
+
+    // auth
     app.post('/auth/github', login.github);
 
-    app.get('/authenticated', authentication.required(), function (req, res) {
-        res.send(req.authentication);
-    });
-
+    // repositories
     app.get('/repositories', authentication.required(), repositories.index);
     app.post('/repository', authentication.required(), repositories.create);
 };
