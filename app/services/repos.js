@@ -11,7 +11,6 @@ const users_collection = function () {
 };
 
 MongoClient.connectAsync(config.mongoUrl).then((dbObject) => {
-    winston.info(`Mongo OK`);
     db = dbObject;
     return db;
 }).catch((error) => {

@@ -16,11 +16,13 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "mocha": "^3.0.2",
+    "nock": "^8.0.0",
     "simple-mock": "^0.7.0"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --recursive",
     "start": "node app.js"
   },
   "engines": {

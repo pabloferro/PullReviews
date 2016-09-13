@@ -5,7 +5,6 @@ var Promise = require('bluebird'),
     config  = require('../../config/config').config;
 
 exports.github = function(req, res) {
-    winston.info(`code: ${req.body.code}`);
     const options = {
         url: 'https://github.com/login/oauth/access_token',
         headers: {
@@ -38,6 +37,6 @@ exports.github = function(req, res) {
             });
         });
     }).catch(function(error, response, body) {
-        res.send({ error, response, body });
+        res.status(400).send({ error, response, body });
     });
 };
